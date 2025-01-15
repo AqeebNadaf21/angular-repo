@@ -1,0 +1,21 @@
+<div class="card__loader"></div>
+<div *ngIf="label" class="address-card__badge tag-badge tag-badge--theme">{{ label }}</div>
+<div class="address-card__body">
+    <div class="address-card__name">{{ address.firstName }} {{ address.lastName }}</div>
+    <div class="address-card__row">
+        {{ 'COUNTRY_NAME_' + address.country|translate }}<br>
+        {{ address.postcode }}, {{ address.city }}<br>
+        {{ address.address1 }} {{ address.address2 }}
+    </div>
+    <div class="address-card__row">
+        <div class="address-card__row-title">{{ 'TEXT_PHONE_NUMBER'|translate }}</div>
+        <div class="address-card__row-content">{{ address.phone }}</div>
+    </div>
+    <div class="address-card__row">
+        <div class="address-card__row-title">{{ 'TEXT_EMAIL_ADDRESS'|translate }}</div>
+        <div class="address-card__row-content">{{ address.email }}</div>
+    </div>
+    <div class="address-card__footer" *ngIf="footer">
+        <ng-container *ngTemplateOutlet="footer"></ng-container>
+    </div>
+</div>

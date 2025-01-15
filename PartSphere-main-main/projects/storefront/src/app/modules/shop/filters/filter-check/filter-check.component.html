@@ -1,0 +1,12 @@
+<div class="filter-list__list" appCheckboxGroup [formControl]="control">
+    <label
+        *ngFor="let item of options.items; trackBy: trackBy"
+        class="filter-list__item"
+        [class.filter-list__item--disabled]="item.count === 0"
+    >
+        <app-checkbox [value]="item.slug" [disabled]="item.count === 0" class="filter-list__input"></app-checkbox>
+
+        <span class="filter-list__title">{{ item.name }}</span>
+        <span *ngIf="item.count" class="filter-list__counter">{{ item.count }}</span>
+    </label>
+</div>

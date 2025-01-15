@@ -1,0 +1,51 @@
+<app-block-header
+    pageTitle="Latest News"
+    [breadcrumb]="[
+        {label: 'Home', url: ''},
+        {label: 'Breadcrumb', url: ''},
+        {label: 'Current Page', url: ''}
+    ]"
+></app-block-header>
+
+<ng-template #sidebar>
+    <div class="blog-view__item blog-view__item-sidebar">
+        <app-blog-sidebar></app-blog-sidebar>
+    </div>
+</ng-template>
+
+<div class="block blog-view blog-view--layout--{{ layout }}">
+    <div class="container">
+        <div class="blog-view__body">
+            <ng-container *ngIf="sidebarPosition === 'start'">
+                <ng-container *ngTemplateOutlet="sidebar"></ng-container>
+            </ng-container>
+            <div class="blog-view__item blog-view__item-posts">
+                <div class="block posts-view">
+                    <div
+                        class="posts-view__list posts-list"
+                        [class.posts-list--layout--classic]="layout === 'classic'"
+                        [class.posts-list--layout--list]="layout === 'list'"
+                        [class.posts-list--layout--grid-2]="layout === 'grid'"
+                    >
+                        <div class="posts-list__body">
+                            <div *ngFor="let post of posts" class="posts-list__item">
+                                <app-post-card
+                                    [post]="post"
+                                    [layout]="getPostCardLayout()"
+                                ></app-post-card>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="posts-view__pagination">
+                        <app-pagination></app-pagination>
+                    </div>
+                </div>
+            </div>
+            <ng-container *ngIf="sidebarPosition === 'end'">
+                <ng-container *ngTemplateOutlet="sidebar"></ng-container>
+            </ng-container>
+        </div>
+    </div>
+</div>
+
+<app-block-space layout="before-footer"></app-block-space>

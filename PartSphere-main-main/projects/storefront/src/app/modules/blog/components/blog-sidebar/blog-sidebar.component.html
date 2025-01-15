@@ -1,0 +1,10 @@
+<app-widget-search></app-widget-search>
+<app-widget-about-us></app-widget-about-us>
+<app-widget-categories
+    [widgetTitle]="'HEADER_CATEGORIES'|translate"
+    [categories]="(categories$|async) || []"
+></app-widget-categories>
+<app-widget-posts widgetTitle="Latest Posts" [posts]="posts"></app-widget-posts>
+<app-widget-newsletter></app-widget-newsletter>
+<app-widget-comments widgetTitle="Latest Comments" [comments]="comments"></app-widget-comments>
+<app-widget-tags widgetTitle="Tags Cloud"></app-widget-tags>

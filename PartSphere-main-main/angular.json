@@ -1,0 +1,206 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "storefront": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/storefront",
+      "sourceRoot": "projects/storefront/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/storefront/browser",
+            "index": "projects/storefront/src/index.html",
+            "main": "projects/storefront/src/main.ts",
+            "polyfills": "projects/storefront/src/polyfills.ts",
+            "tsConfig": "projects/storefront/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/storefront/src/favicon.ico",
+              "projects/storefront/src/assets",
+              {
+                "glob": "**/*",
+                "input": "node_modules/photoswipe/dist",
+                "output": "assets/vendor/photoswipe"
+              }
+            ],
+            "styles": [
+              "node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.carousel.min.css",
+              "projects/storefront/src/styles.scss",
+              "projects/storefront/src/scss/style.header-spaceship-variant-one.scss",
+              "projects/storefront/src/scss/style.header-spaceship-variant-two.scss",
+              "projects/storefront/src/scss/style.header-spaceship-variant-three.scss",
+              "projects/storefront/src/scss/style.header-classic-variant-one.scss",
+              "projects/storefront/src/scss/style.header-classic-variant-two.scss",
+              "projects/storefront/src/scss/style.header-classic-variant-three.scss",
+              "projects/storefront/src/scss/style.header-classic-variant-four.scss",
+              "projects/storefront/src/scss/style.header-classic-variant-five.scss",
+              "projects/storefront/src/scss/style.mobile-header-variant-one.scss",
+              "projects/storefront/src/scss/style.mobile-header-variant-two.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "3mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "16kb",
+                  "maximumError": "32kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/storefront/src/environments/environment.ts",
+                  "with": "projects/storefront/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all",
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                },
+                "fonts": true
+              }
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "storefront:build:production"
+            },
+            "development": {
+              "browserTarget": "storefront:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "storefront:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/storefront/src/test.ts",
+            "polyfills": "projects/storefront/src/polyfills.ts",
+            "tsConfig": "projects/storefront/tsconfig.spec.json",
+            "karmaConfig": "projects/storefront/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/storefront/src/favicon.ico",
+              "projects/storefront/src/assets"
+            ],
+            "styles": [
+              "projects/storefront/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/storefront/server",
+            "main": "projects/storefront/server.ts",
+            "tsConfig": "projects/storefront/tsconfig.server.json",
+            "inlineStyleLanguage": "scss"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "projects/storefront/src/environments/environment.ts",
+                  "with": "projects/storefront/src/environments/environment.prod.ts"
+                }
+              ]
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "storefront:build:development",
+              "serverTarget": "storefront:server:development"
+            },
+            "production": {
+              "browserTarget": "storefront:build:production",
+              "serverTarget": "storefront:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "storefront:build:production",
+              "serverTarget": "storefront:server:production"
+            },
+            "development": {
+              "browserTarget": "storefront:build:development",
+              "serverTarget": "storefront:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/storefront/**/*.ts",
+              "projects/storefront/**/*.html"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "storefront",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
+}

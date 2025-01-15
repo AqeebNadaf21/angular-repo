@@ -1,0 +1,18 @@
+<div class="widget__header">
+    <h4>About Blog</h4>
+</div>
+<div class="widget-about-us__body">
+    <div class="widget-about-us__text">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tincidunt, erat in malesuada aliquam, est erat faucibus purus,
+        eget viverra nulla sem vitae neque. Quisque id sodales libero.
+    </div>
+    <div class="widget-about-us__social-links social-links">
+        <ul class="social-links__list">
+            <li *ngFor="let socialLink of socialLinks" class="social-links__item social-links__item--{{ socialLink.name }}">
+                <a [href]="socialLink.url" target="_blank">
+                    <i class="widget-social__icon {{ socialLink.icon }}"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

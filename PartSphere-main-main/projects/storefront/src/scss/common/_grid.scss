@@ -1,0 +1,15 @@
+/*
+// grid
+*/
+@use 'sass:math';
+
+
+@for $i from 1 through 5 {
+    .col-#{$i}of5 {
+        padding: 0 15px;
+        flex: 0 0 (math.div(100%, 5) * $i);
+        max-width: (math.div(100%, 5) * $i);
+        position: relative;
+        width: 100%;
+    }
+}

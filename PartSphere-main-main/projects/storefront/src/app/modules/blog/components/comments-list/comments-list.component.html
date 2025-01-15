@@ -1,0 +1,22 @@
+<ol class="comments-list comments-list--level--{{ level }}">
+    <li *ngFor="let comment of comments" class="comments-list__item">
+        <div class="comment">
+            <div class="comment__body">
+                <div class="comment__avatar">
+                    <img [src]="comment.avatar" alt="">
+                </div>
+                <div class="comment__meta">
+                    <div class="comment__author">{{ comment.author }}</div>
+                    <div class="comment__date">{{ comment.date }}</div>
+                </div>
+                <div class="comment__reply">
+                    <button type="button" class="btn btn-xs btn-light">Reply</button>
+                </div>
+                <div class="comment__content typography">{{ comment.text }}</div>
+            </div>
+        </div>
+        <div *ngIf="comment.children" class="comments-list__children">
+            <app-comments-list [comments]="comment.children" [level]="level + 1"></app-comments-list>
+        </div>
+    </li>
+</ol>

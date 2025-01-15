@@ -1,0 +1,34 @@
+<div class="card">
+    <div class="card-header">
+        <h5>{{ (addressId ? 'HEADER_EDIT_ADDRESS' : 'HEADER_NEW_ADDRESS')|translate }}</h5>
+    </div>
+    <div class="card-divider"></div>
+    <div class="card-body card-body--padding--2">
+        <div class="row no-gutters">
+            <div class="col-12 col-lg-10 col-xl-8" [formGroup]="form">
+                <app-address-form formControlName="address"></app-address-form>
+
+                <div class="form-group mt-3">
+                    <div class="form-check">
+                        <app-checkbox
+                            class="form-check-input"
+                            formControlName="default"
+                            #cbDefault
+                        ></app-checkbox>
+                        <label class="form-check-label" [htmlFor]="cbDefault.inputId">
+                            {{ 'INPUT_SET_AS_MY_DEFAULT_ADDRESS_LABEL'|translate }}
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group mb-0 pt-3 mt-3">
+                    <button
+                        class="btn btn-primary"
+                        [class.btn-loading]="saveInProgress"
+                        (click)="save()"
+                    >{{ 'BUTTON_SAVE'|translate }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

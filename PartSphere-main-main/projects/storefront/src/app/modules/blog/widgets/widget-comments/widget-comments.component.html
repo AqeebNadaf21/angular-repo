@@ -1,0 +1,16 @@
+<div *ngIf="widgetTitle" class="widget__header">
+    <h4>{{ widgetTitle }}</h4>
+</div>
+
+<div class="widget-comments__body">
+    <ul class="widget-comments__list">
+        <li *ngFor="let comment of comments" class="widget-comments__item">
+            <div class="widget-comments__author"><a href="">{{ comment.author }}</a></div>
+            <div class="widget-comments__content">{{ comment.text }}</div>
+            <div class="widget-comments__meta">
+                <div class="widget-comments__date">{{ comment.date }}</div>
+                <div class="widget-comments__name">On <a href="" title="{{ comment.postTitle }}">{{ comment.postTitle }}</a></div>
+            </div>
+        </li>
+    </ul>
+</div>

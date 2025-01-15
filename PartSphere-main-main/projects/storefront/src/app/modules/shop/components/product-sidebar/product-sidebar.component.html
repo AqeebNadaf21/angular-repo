@@ -1,0 +1,9 @@
+<app-widget-categories
+    [widgetTitle]="'HEADER_CATEGORIES'|translate"
+    [categories]="(categories$|async) || []"
+></app-widget-categories>
+
+<app-widget-products
+    [widgetTitle]="'HEADER_LATEST_PRODUCTS'|translate"
+    [products]="(latestProducts$|async) || []"
+></app-widget-products>

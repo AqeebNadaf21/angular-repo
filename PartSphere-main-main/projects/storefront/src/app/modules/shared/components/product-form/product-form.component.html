@@ -1,0 +1,42 @@
+<div class="product-form__body" [formGroup]="form">
+    <div *ngFor="let option of options" class="product-form__row">
+        <div class="product-form__title">{{ option.name }}</div>
+        <div class="product-form__control">
+            <div *ngIf="option.type === 'default'" class="input-radio-label">
+                <div class="input-radio-label__list">
+                    <label *ngFor="let value of option.values" class="input-radio-label__item">
+                        <input
+                            type="radio"
+                            name="material"
+                            class="input-radio-label__input"
+                            [value]="value.slug"
+                            [formControlName]="option.slug"
+                        >
+                        <span class="input-radio-label__title">{{ value.name }}</span>
+                    </label>
+                </div>
+            </div>
+            <div *ngIf="option.type === 'color'" class="input-radio-color">
+                <div class="input-radio-color__list">
+                    <label
+                        *ngFor="let value of option.values"
+                        class="input-radio-color__item"
+                        [class.input-radio-color__item--white]="isWhite(value.color)"
+                        [style.color]="value.color"
+                        [title]="value.name"
+                        [tooltip]="value.name"
+                        container="body"
+                    >
+                        <input
+                            type="radio"
+                            name="color"
+                            [value]="value.slug"
+                            [formControlName]="option.slug"
+                        >
+                        <span></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

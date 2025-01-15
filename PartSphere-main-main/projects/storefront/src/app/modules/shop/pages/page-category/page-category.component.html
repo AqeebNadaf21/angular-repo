@@ -1,0 +1,85 @@
+<app-block-header
+    [pageTitle]="(pageTitle$|async) || ''"
+    [breadcrumb]="(breadcrumbs$|async) || []"
+></app-block-header>
+
+<ng-template #sidebar>
+    <div class="block-split__item block-split__item-sidebar col-auto">
+        <app-widget-categories-list
+            *ngIf="(children$|async)?.length"
+            [categories]="(children$|async) || []"
+        ></app-widget-categories-list>
+
+        <app-widget-products
+            [widgetTitle]="'HEADER_LATEST_PRODUCTS'|translate"
+            [products]="(latest$|async) || []"
+        ></app-widget-products>
+    </div>
+</ng-template>
+
+<div class="block block-split" [class.block-split--has-sidebar]="hasSidebar">
+    <div class="container">
+        <div class="block-split__row row no-gutters">
+            <ng-container *ngIf="hasSidebar && sidebarPosition === 'start'">
+                <ng-container *ngTemplateOutlet="sidebar"></ng-container>
+            </ng-container>
+            <div class="block-split__item block-split__item-content col-auto flex-grow-1">
+                <ng-container *ngIf="(children$|async)?.length">
+                    <div class="block">
+                        <div class="categories-list categories-list--layout--{{ layout }}">
+                            <ul class="categories-list__body">
+                                <ng-container *ngFor="let subcategory of children$|async">
+                                    <li class="categories-list__item" [class.categories-list__item--has-image]="subcategory.image">
+                                        <a [routerLink]="url.category(subcategory)">
+                                            <div *ngIf="subcategory.image" class="image image--type--category">
+                                                <div class="image__body">
+                                                    <img class="image__tag" [src]="subcategory.image" [alt]="subcategory.name">
+                                                </div>
+                                            </div>
+                                            <div class="categories-list__item-name">{{ subcategory.name }}</div>
+                                        </a>
+                                        <div class="categories-list__item-products" *ngIf="subcategory.items">
+                                            {{ 'TEXT_PRODUCTS_COUNT'|translate:{count: subcategory.items} }}
+                                        </div>
+                                    </li>
+                                    <li class="categories-list__divider"></li>
+                                </ng-container>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <app-block-space layout="divider-nl"></app-block-space>
+                </ng-container>
+
+                <app-block-products-carousel
+                    [blockTitle]="'HEADER_BESTSELLERS'|translate"
+                    [layout]="hasSidebar ? 'grid-4-sidebar' : 'grid-5'"
+                    [products]="(bestsellers.data$|async) || []"
+                    [loading]="bestsellers.loading"
+                ></app-block-products-carousel>
+
+                <app-block-space layout="divider-nl"></app-block-space>
+
+                <app-block-products-carousel
+                    [blockTitle]="'HEADER_FEATURED_PRODUCTS'|translate"
+                    [layout]="hasSidebar ? 'horizontal-sidebar' : 'horizontal'"
+                    [rows]="2"
+                    [products]="(featured.data$|async) || []"
+                    [loading]="featured.loading"
+                ></app-block-products-carousel>
+
+                <app-block-space layout="divider-nl"></app-block-space>
+
+                <app-block-brands
+                    [layout]="hasSidebar ? 'columns-7-sidebar' : 'columns-8-full'"
+                    [brands]="(brands$|async) || []"
+                ></app-block-brands>
+            </div>
+            <ng-container *ngIf="hasSidebar && sidebarPosition === 'end'">
+                <ng-container *ngTemplateOutlet="sidebar"></ng-container>
+            </ng-container>
+        </div>
+    </div>
+</div>
+
+<app-block-space layout="before-footer"></app-block-space>
